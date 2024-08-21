@@ -1,9 +1,18 @@
 "use client";
 
 import { useLogout } from "@/api/iam/hooks/useLogout";
+import { redirect } from "next/navigation";
+import { useMemo } from "react";
 
 const QuickAccessPage = () => {
-  const { mutate } = useLogout();
+  const { mutate, isSuccess } = useLogout();
+
+  useMemo(() => {
+    if (isSuccess) {
+      console.log("isSuccess");
+      redirect("/");
+    }
+  }, [isSuccess]);
 
   return (
     <>
@@ -13,7 +22,6 @@ const QuickAccessPage = () => {
           type="submit"
           onClick={() => {
             mutate();
-            window.location.reload();
           }}
         >
           se déconnecter

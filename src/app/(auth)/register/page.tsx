@@ -1,130 +1,107 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useRegister } from "@/api/iam/hooks/useRegister";
-import Link from "next/link";
+import AuthPage from "../_components/AuthPage";
+import { FieldProps } from "@/types/FormProps";
+import { Credentials, ErrorResponse } from "@/api/iam/iam.model";
+import Field from "@/components/Field";
 
 const LoginPage = () => {
-  const router = useRouter();
-
-  const [formFields, setFormFields] = useState<any>({
+  const initialValues: FieldProps = {
     email: "",
-    password: "",
     username: "",
+    password: "",
     firstName: "",
     lastName: "",
     birthday: "",
-  });
-
-  const [error, setError] = useState<string | null>(null);
+  };
 
   const { mutate } = useRegister();
 
   return (
-    <div>
-      <h2>Login</h2>
-      {error && <p>{error}</p>}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
+    <AuthPage
+      title="Inscription"
+      initialValues={initialValues}
+      onSubmit={(values: FieldProps) => {
+        const { email, username, password, firstName, lastName, birthday } =
+          values;
+        if (
+          typeof email === "string" &&
+          typeof username === "string" &&
+          typeof password === "string" &&
+          typeof firstName === "string" &&
+          typeof lastName === "string" &&
+          typeof birthday === "string"
+        ) {
           mutate(
             {
-              ...formFields,
+              email,
+              username,
+              password,
+              firstName,
+              lastName,
+              birthday,
             },
             {
-              onSuccess: (data) => {
-                setError(null);
-                console.log("loginData", data);
+              onSuccess: (data: Credentials | ErrorResponse) => {
                 if ("provided" in data) {
-                  console.log("loginData", data);
-                  const decoded = jwtDecode(data.provided.accessToken!); // never null
-                  localStorage.setItem("sub", decoded.sub!);
-                  router.push("/home");
+                  // optional : save access token
+                  redirect("/home");
                 }
               },
               onError: (error) => {
-                setError(error.message);
                 console.log("error", error);
               },
             }
           );
-        }}
-      >
-        <input
-          type="text"
-          value={formFields.email}
-          onChange={(e) =>
-            setFormFields((prev: any) => ({ ...prev, email: e.target.value }))
-          }
-          placeholder="Email"
-          className="text-black"
-        />
-        <input
-          type="text"
-          value={formFields.username}
-          onChange={(e) =>
-            setFormFields((prev: any) => ({
-              ...prev,
-              username: e.target.value,
-            }))
-          }
-          placeholder="Username"
-          className="text-black"
-        />
-        <input
-          type="password"
-          value={formFields.password}
-          onChange={(e) =>
-            setFormFields((prev: any) => ({
-              ...prev,
-              password: e.target.value,
-            }))
-          }
-          placeholder="Password"
-          className="text-black"
-        />
-        <input
-          type="text"
-          value={formFields.firstName}
-          onChange={(e) =>
-            setFormFields((prev: any) => ({
-              ...prev,
-              firstName: e.target.value,
-            }))
-          }
-          placeholder="First Name"
-          className="text-black"
-        />
-        <input
-          type="text"
-          value={formFields.lastName}
-          onChange={(e) =>
-            setFormFields((prev: any) => ({
-              ...prev,
-              lastName: e.target.value,
-            }))
-          }
-          placeholder="Last Name"
-          className="text-black"
-        />
-        <input
-          type="date"
-          value={formFields.birthday}
-          onChange={(e) =>
-            setFormFields((prev: any) => ({
-              ...prev,
-              birthday: e.target.value,
-            }))
-          }
-          placeholder="Birthday"
-          className="text-black"
-        />
-        <button type="submit">Login</button>
-      </form>
-      <Link href="/login">Se connecter</Link>
-    </div>
+        }
+      }}
+    >
+      <Field
+        id="email"
+        name="email"
+        type="email"
+        placeholder="Email"
+        className="text-black"
+      />
+      <Field
+        id="username"
+        name="username"
+        type="text"
+        placeholder="Nom d'utilisateur"
+        className="text-black"
+      />
+      <Field
+        id="password"
+        name="password"
+        type="password"
+        placeholder="Mot de passe"
+        className="text-black"
+      />
+
+      <Field
+        id="firstName"
+        name="firstName"
+        type="text"
+        placeholder="Prénom"
+        className="text-black"
+      />
+      <Field
+        id="lastName"
+        name="lastName"
+        type="text"
+        placeholder="Nom"
+        className="text-black"
+      />
+      <Field
+        id="birthday"
+        name="birthday"
+        type="date"
+        placeholder="Date de naissance"
+        className="text-black"
+      />
+    </AuthPage>
   );
 };
 
