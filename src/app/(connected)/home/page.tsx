@@ -1,6 +1,10 @@
 "use client";
 
+import { useLogout } from "@/api/iam/hooks/useLogout";
+
 const QuickAccessPage = () => {
+  const { mutate } = useLogout();
+
   return (
     <>
       <h1>Quick Access</h1>
@@ -8,8 +12,8 @@ const QuickAccessPage = () => {
         <button
           type="submit"
           onClick={() => {
-            localStorage.removeItem("sub");
-            // TODO: also call the logout endpoint to clean the session
+            mutate();
+            window.location.reload();
           }}
         >
           se déconnecter

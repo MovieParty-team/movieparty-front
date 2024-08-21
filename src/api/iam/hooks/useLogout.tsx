@@ -1,12 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import IamService, { IamServiceKey } from "../iam.service";
-import { RegisterInput } from "../iam.model";
 
 // login hook
-export const useRegister = () => {
+export const useLogout = () => {
   return useMutation({
-    mutationFn: async (data: RegisterInput) =>
-      await IamService.register(data),
+    mutationFn: async () => await IamService.logout(),
     mutationKey: [IamServiceKey, "login"],
   });
 };

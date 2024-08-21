@@ -1,32 +1,20 @@
 "use client";
 
-import API from "@/api/Api";
+import useGetSelfInfo from "@/api/iam/hooks/useGetSelfInfo";
 import CustomLoading from "@/components/CustomLoading";
-import { useRouter } from "next/navigation";
+import { userInfosType } from "@/types/userData.types";
+import { redirect } from "next/navigation";
 import React, {
   FunctionComponent,
   ReactNode,
   createContext,
   useCallback,
-  useEffect,
-  useState,
+  useMemo,
 } from "react";
 
-interface userInfosType {
-  uuid: string;
-  email: string;
-  username: string;
-  firstname: string;
-  lastname: string;
-  bio: string;
-  avatar: string;
-  birthday: Date;
-}
-
 interface ConnectedContextType {
-  userUuid: string;
   userInfos: userInfosType;
-  setUserInfos: any;
+  setUpdatedUserInfos: any;
 }
 
 export const ConnectedContext = createContext<ConnectedContextType | undefined>(
@@ -38,42 +26,21 @@ interface IProps {
 }
 
 const ConnectedProvider: FunctionComponent<IProps> = ({ children }) => {
-  const [userInfos, setUserInfos] = useState<userInfosType>();
+  const setUpdatedUserInfos = useCallback(() => {
+    // update data and refetch OR set a state
+  }, []);
 
-  const router = useRouter();
+  const { data: userInfosData, isSuccess, isError } = useGetSelfInfo();
 
-  const fetchUserInfos = useCallback(async () => {
-    try {
-      const userUuidInStorage = localStorage.getItem("sub");
-
-      if (userUuidInStorage) {
-        console.log("userUuidInStorage", userUuidInStorage);
-        const response = await API.get("/user", {
-          params: { uuid: userUuidInStorage },
-        });
-
-        if (response.status === 200) {
-          setUserInfos(response.data.provided);
-        } else {
-          localStorage.removeItem("uuid");
-          router.push("/login");
-        }
-      } else {
-        localStorage.removeItem("uuid"); // just in case
-        router.push("/login");
-      }
-    } catch (error) {
-      console.error("error :", error);
-      localStorage.removeItem("uuid");
-      router.push("/login");
+  const userInfos = useMemo<userInfosType | undefined>(():
+    | userInfosType
+    | undefined => {
+    if (isSuccess && userInfosData) {
+      return userInfosData;
+    } else if (isError) {
+      redirect("/login");
     }
-  }, [router]);
-
-  useEffect(() => {
-    if (fetchUserInfos) {
-      fetchUserInfos();
-    }
-  }, [fetchUserInfos]);
+  }, [isError, isSuccess, userInfosData]);
 
   if (!userInfos) {
     return (
@@ -87,8 +54,7 @@ const ConnectedProvider: FunctionComponent<IProps> = ({ children }) => {
     <ConnectedContext.Provider
       value={{
         userInfos,
-        setUserInfos,
-        userUuid: localStorage.getItem("uuid")!,
+        setUpdatedUserInfos,
       }}
     >
       {children}

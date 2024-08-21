@@ -1,59 +1,142 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-import { useLogin } from "@/api/iam/hooks/useLogin";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLogin } from "@/api/iam/hooks/useLogin";
+import Link from "next/link";
+import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Credentials, ErrorResponse } from "@/api/iam/iam.model";
+
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
 
 const LoginPage = () => {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [formFields, setFormFields] = useState<any>({
+    email: "",
+    password: "",
+  });
 
-  const { mutate, isSuccess, data: loginData } = useLogin();
+  const initialValues: LoginFormValues = {
+    email: "",
+    password: "",
+  };
+
+  const { mutate } = useLogin();
 
   return (
     <div>
       <h2>Login</h2>
-      {error && <p>{error}</p>}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          mutate({
-            email,
-            password,
-          });
-          if (isSuccess) {
-            setError(null);
-            if (loginData && loginData.data) {
-              const decoded = jwtDecode(loginData.data.accessToken);
-              localStorage.setItem("sub", decoded.sub!);
-              router.push("/home");
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(
+          values: LoginFormValues,
+          helpers: FormikHelpers<LoginFormValues>
+        ) => {
+          mutate(
+            {
+              ...values,
+            },
+            {
+              onSuccess: (data: Credentials | ErrorResponse) => {
+                console.log("loginData", data);
+                if ("provided" in data) {
+                  helpers.setSubmitting(false);
+                  router.push("/home");
+                }
+              },
+              onError: (error) => {
+                console.log("error", error);
+              },
             }
-          }
+          );
         }}
       >
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          className="text-black"
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          className="text-black"
-        />
-        <button type="submit">Login</button>
-      </form>
+        <Form>
+          <label htmlFor="email">Votre e-mail</label>
+          <Field
+            id="email"
+            name="email"
+            type="text"
+            placeholder="Email"
+            className="text-black"
+          />
+
+          <label htmlFor="password">Mot de passe</label>
+          <Field
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Mot de passe"
+            className="text-black"
+          />
+          <button type="submit">Se connecter</button>
+        </Form>
+      </Formik>
+      <Link href="/register">Créer un compte</Link>
     </div>
   );
+
+  // return (
+  //   <div>
+  //     <h2>Login</h2>
+  //     {error && <p>{error}</p>}
+  //     <form
+  //       onSubmit={(e) => {
+  //         e.preventDefault();
+  //         mutate(
+  //           {
+  //             ...formFields,
+  //           },
+  //           {
+  //             onSuccess: (data) => {
+  //               setError(null);
+  //               console.log("loginData", data);
+  //               if ("provided" in data) {
+  //                 console.log("loginData", data);
+  //                 const decoded = jwtDecode(data.provided.accessToken!); // never null
+  //                 localStorage.setItem("sub", decoded.sub!);
+  //                 router.push("/home");
+  //               }
+  //             },
+  //             onError: (error) => {
+  //               setError(error.message);
+  //               console.log("error", error);
+  //             },
+  //           }
+  //         );
+  //       }}
+  //     >
+  //       <input
+  //         type="text"
+  //         value={formFields.email}
+  //         onChange={(e) =>
+  //           setFormFields((prev: any) => ({ ...prev, email: e.target.value }))
+  //         }
+  //         placeholder="Email"
+  //         className="text-black"
+  //       />
+  //       <input
+  //         type="password"
+  //         value={formFields.password}
+  //         onChange={(e) => {
+  //           console.log(typeof e.target.value);
+  //           setFormFields((prev: any) => ({
+  //             ...prev,
+  //             password: e.target.value,
+  //           }));
+  //         }}
+  //         placeholder="Password"
+  //         className="text-black"
+  //       />
+  //       <button type="submit">Login</button>
+  //     </form>
+  //     <Link href="/register">Créer un compte</Link>
+  //   </div>
+  // );
 };
 
 export default LoginPage;
