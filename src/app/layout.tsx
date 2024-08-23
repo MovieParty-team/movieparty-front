@@ -19,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={`bg-darkBackground h-[100vh] ${inter.className}`}
+      >
         <ConfigProvider theme={antdTheme}>
           <QueryProvider>{children}</QueryProvider>
         </ConfigProvider>

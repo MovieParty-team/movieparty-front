@@ -2,7 +2,6 @@
 import { useMemo } from "react";
 
 import { redirect } from "next/navigation";
-import CustomLoading from "@/components/CustomLoading";
 import useGetSelfInfo from "@/api/iam/hooks/useGetSelfInfo";
 
 const DisconnectedProvider = ({ children }: { children: React.ReactNode }) => {

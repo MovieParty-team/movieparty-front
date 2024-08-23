@@ -1,31 +1,23 @@
 "use client";
 
 import { useLogout } from "@/api/iam/hooks/useLogout";
-import { redirect } from "next/navigation";
-import { useMemo } from "react";
+import Button from "@/components/Button";
 
 const QuickAccessPage = () => {
-  const { mutate, isSuccess } = useLogout();
-
-  useMemo(() => {
-    if (isSuccess) {
-      console.log("isSuccess");
-      redirect("/");
-    }
-  }, [isSuccess]);
+  const { mutate } = useLogout();
 
   return (
     <>
       <h1>Quick Access</h1>
       <form action="">
-        <button
-          type="submit"
+        <Button
+          type="primary"
           onClick={() => {
             mutate();
           }}
         >
-          se déconnecter
-        </button>
+          Deconnexion
+        </Button>
       </form>
     </>
   );

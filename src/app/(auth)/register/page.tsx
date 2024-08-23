@@ -1,19 +1,29 @@
 "use client";
 
-import { redirect } from "next/navigation";
 import { useRegister } from "@/api/iam/hooks/useRegister";
 import AuthPage from "../_components/AuthPage";
 import { FieldProps } from "@/types/FormProps";
-import { Credentials, ErrorResponse } from "@/api/iam/iam.model";
 import Field from "@/components/Field";
+import * as Yup from "yup";
+
+const registerSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("L'email n'est pas valide")
+    .required("L'email est requis"),
+  username: Yup.string().min(4).required("Le nom d'utilisateur est requis"),
+  password: Yup.string().min(4).required("Le mot de passe est requis"),
+  firstname: Yup.string().min(4).required("Le nom est requis"),
+  lastname: Yup.string().min(4).required("Le prenom est requis"),
+  birthday: Yup.string().required("La date de naissance est requise"),
+});
 
 const LoginPage = () => {
   const initialValues: FieldProps = {
     email: "",
     username: "",
     password: "",
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     birthday: "",
   };
 
@@ -23,39 +33,16 @@ const LoginPage = () => {
     <AuthPage
       title="Inscription"
       initialValues={initialValues}
+      validationSchema={registerSchema}
       onSubmit={(values: FieldProps) => {
-        const { email, username, password, firstName, lastName, birthday } =
-          values;
-        if (
-          typeof email === "string" &&
-          typeof username === "string" &&
-          typeof password === "string" &&
-          typeof firstName === "string" &&
-          typeof lastName === "string" &&
-          typeof birthday === "string"
-        ) {
-          mutate(
-            {
-              email,
-              username,
-              password,
-              firstName,
-              lastName,
-              birthday,
-            },
-            {
-              onSuccess: (data: Credentials | ErrorResponse) => {
-                if ("provided" in data) {
-                  // optional : save access token
-                  redirect("/home");
-                }
-              },
-              onError: (error) => {
-                console.log("error", error);
-              },
-            }
-          );
-        }
+        mutate({
+          email: values.email as string,
+          username: values.username as string,
+          password: values.password as string,
+          firstname: values.firstname as string,
+          lastname: values.lastname as string,
+          birthday: values.birthday as string,
+        });
       }}
     >
       <Field
@@ -63,43 +50,43 @@ const LoginPage = () => {
         name="email"
         type="email"
         placeholder="Email"
-        className="text-black"
+        className="text-black p-2"
       />
       <Field
         id="username"
         name="username"
         type="text"
         placeholder="Nom d'utilisateur"
-        className="text-black"
+        className="text-black p-2"
       />
       <Field
         id="password"
         name="password"
         type="password"
         placeholder="Mot de passe"
-        className="text-black"
+        className="text-black p-2"
       />
 
       <Field
-        id="firstName"
-        name="firstName"
+        id="firstname"
+        name="firstname"
         type="text"
         placeholder="Prénom"
-        className="text-black"
+        className="text-black p-2"
       />
       <Field
-        id="lastName"
-        name="lastName"
+        id="lastname"
+        name="lastname"
         type="text"
         placeholder="Nom"
-        className="text-black"
+        className="text-black p-2"
       />
       <Field
         id="birthday"
         name="birthday"
         type="date"
         placeholder="Date de naissance"
-        className="text-black"
+        className="text-black p-2"
       />
     </AuthPage>
   );

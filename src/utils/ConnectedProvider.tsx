@@ -37,7 +37,7 @@ const ConnectedProvider: FunctionComponent<IProps> = ({ children }) => {
     | undefined => {
     if (isSuccess && userInfosData) {
       return userInfosData;
-    } else if (isError || !userInfosData) {
+    } else if (isError) {
       redirect("/login");
     }
   }, [isError, isSuccess, userInfosData]);

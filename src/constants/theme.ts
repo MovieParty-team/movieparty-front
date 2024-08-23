@@ -20,19 +20,19 @@ export const antdTheme: ThemeConfig = {
     colorPrimary: Colors.primary,
     colorInfo: "#43a39d",
     fontSize: 14,
-    fontFamily: "var(--font-primary)",
     colorText: TextColors.primary,
     borderRadius,
   },
   components: {
     Button: {
       borderRadius: 2,
-      defaultBg: "black",
-      defaultColor: "white",
-      defaultHoverColor: "white",
+      defaultBg: Colors.primary,
+      defaultColor: TextColors.primary,
+      defaultHoverColor: TextColors.primary,
       defaultHoverBg: "#444",
       defaultBorderColor: "black",
       defaultHoverBorderColor: "white",
+      padding: 5,
     },
   },
 };

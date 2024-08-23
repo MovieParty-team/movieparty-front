@@ -3,17 +3,15 @@ import API from "../Api";
 import {
   Credentials,
   ErrorResponse,
+  GeUserInput,
   LoginInput,
   RegisterInput,
 } from "./iam.model";
 
 export const IamServiceKey: string = "IamService";
 export default class IamService {
-  static async login({
-    email,
-    password,
-  }: LoginInput): Promise<Credentials | ErrorResponse> {
-    const response = await API.post("/auth/login", { email, password });
+  static async login(data: LoginInput): Promise<Credentials | ErrorResponse> {
+    const response = await API.post("/auth/login", data);
     if (response.status === 200) {
       return {
         provided: response.data.provided,
@@ -26,22 +24,10 @@ export default class IamService {
     }
   }
 
-  static async register({
-    email,
-    username,
-    password,
-    firstName,
-    lastName,
-    birthday,
-  }: RegisterInput): Promise<Credentials | ErrorResponse> {
-    const response = await API.post("/auth/register", {
-      email,
-      username,
-      password,
-      firstName,
-      lastName,
-      birthday,
-    });
+  static async register(
+    data: RegisterInput
+  ): Promise<Credentials | ErrorResponse> {
+    const response = await API.post("/auth/register", data);
     if (response.status === 200) {
       return {
         provided: response.data.provided,
@@ -68,8 +54,9 @@ export default class IamService {
     }
   }
 
-  static async geUser(uuid: string): Promise<userInfosType> {
-    return API.get(`/user`, { params: { uuid } });
+  // update this
+  static async geUser(): Promise<userInfosType> {
+    return API.get(`/user`);
   }
 
   static async geMyself(): Promise<userInfosType> {

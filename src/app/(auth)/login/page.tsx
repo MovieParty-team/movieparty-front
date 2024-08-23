@@ -1,12 +1,21 @@
 "use client";
 
 import React from "react";
-import { redirect } from "next/navigation";
 import { useLogin } from "@/api/iam/hooks/useLogin";
-import { Credentials, ErrorResponse } from "@/api/iam/iam.model";
 import AuthPage from "../_components/AuthPage";
 import { FieldProps } from "@/types/FormProps";
 import Field from "@/components/Field";
+import * as Yup from "yup";
+import { errors } from "openid-client";
+
+const loginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("L'email n'est pas valide")
+    .required("L'email est requis"),
+  password: Yup.string()
+    .min(4, "Le mot de passe doit contenir au moins 4 caractères")
+    .required("Le mot de passe est requis"),
+});
 
 const LoginPage = () => {
   const initialValues: FieldProps = {
@@ -20,29 +29,12 @@ const LoginPage = () => {
     <AuthPage
       title="Connexion"
       initialValues={initialValues}
+      validationSchema={loginSchema}
       onSubmit={(values: FieldProps) => {
-        if (
-          typeof values.email === "string" &&
-          typeof values.password === "string"
-        ) {
-          mutate(
-            {
-              email: values.email,
-              password: values.password,
-            },
-            {
-              onSuccess: (data: Credentials | ErrorResponse) => {
-                if ("provided" in data) {
-                  // optional : save access token
-                  redirect("/home");
-                }
-              },
-              onError: (error) => {
-                console.log("error", error);
-              },
-            }
-          );
-        }
+        mutate({
+          email: values.email as string,
+          password: values.password as string,
+        });
       }}
     >
       <Field
@@ -50,14 +42,14 @@ const LoginPage = () => {
         name="email"
         type="text"
         placeholder="Email"
-        className="text-black"
+        className="p-2"
       />
       <Field
         id="password"
         name="password"
         type="password"
         placeholder="Mot de passe"
-        className="text-black"
+        className="p-2"
       />
     </AuthPage>
   );

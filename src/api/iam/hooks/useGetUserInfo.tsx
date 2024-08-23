@@ -4,7 +4,7 @@ import IamService, { IamServiceKey } from "../iam.service";
 
 export default function useGetUserInfo() {
   return useQuery({
-    queryFn: async () => await IamService.geUser(localStorage.getItem("uuid") as string),
-    queryKey: [IamServiceKey, "user"],
+    queryFn: async () => await IamService.geUser(),
+    queryKey: [IamServiceKey],
   });
 }
