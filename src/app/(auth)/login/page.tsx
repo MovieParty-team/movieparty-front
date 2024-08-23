@@ -6,7 +6,6 @@ import AuthPage from "../_components/AuthPage";
 import { FieldProps } from "@/types/FormProps";
 import Field from "@/components/Field";
 import * as Yup from "yup";
-import { errors } from "openid-client";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
