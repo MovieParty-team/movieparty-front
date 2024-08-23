@@ -1,12 +1,15 @@
+import CustomLoading from "@/components/CustomLoading";
 import DisconnectedProvider from "@/utils/DisconnectedProvider";
 import { Suspense } from "react";
 
-export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+export default function AuthLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <Suspense>
+    <Suspense fallback={<CustomLoading />}>
       <DisconnectedProvider>{children}</DisconnectedProvider>
     </Suspense>
   );
-};
-
-export default AuthLayout;
+}
