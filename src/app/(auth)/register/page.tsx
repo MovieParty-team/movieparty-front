@@ -17,7 +17,7 @@ const registerSchema = Yup.object().shape({
   birthday: Yup.string().required("La date de naissance est requise"),
 });
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const initialValues: FieldProps = {
     email: "",
     username: "",
@@ -92,4 +92,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
