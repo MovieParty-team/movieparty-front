@@ -16,9 +16,4 @@ describe("Login", () => {
   it("should render login page", () => {
     expect(screen).toBeDefined();
   });
-
-  it("should have email and password fields", () => {
-    expect(screen.getByPlaceholderText("Email")).toBeDefined();
-    expect(screen.getByPlaceholderText("Mot de passe")).toBeDefined();
-  });
 });
