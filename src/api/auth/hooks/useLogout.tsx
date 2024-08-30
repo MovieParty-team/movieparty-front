@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import IamService, { IamServiceKey } from "../iam.service";
+import  { IamServiceKey } from "../../iam/iam.service";
+import AuthService from "../auth.service";
 
 // login hook
 export const useLogout = () => {
   const client = useQueryClient();
   return useMutation({
-    mutationFn: async () => await IamService.logout(),
+    mutationFn: async () => await AuthService.logout(),
     onSettled: async () => {
       await client.invalidateQueries({
         queryKey: [IamServiceKey],

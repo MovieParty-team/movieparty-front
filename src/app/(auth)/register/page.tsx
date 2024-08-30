@@ -1,6 +1,6 @@
 "use client";
 
-import { useRegister } from "@/api/iam/hooks/useRegister";
+import { useRegister } from "@/api/auth/hooks/useRegister";
 import AuthPage from "../_components/AuthPage";
 import { FieldProps } from "@/types/FormProps";
 import Field from "@/components/Field";

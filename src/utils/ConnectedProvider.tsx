@@ -30,17 +30,15 @@ const ConnectedProvider: FunctionComponent<IProps> = ({ children }) => {
     // update data and refetch OR set a state
   }, []);
 
-  const { data: userInfosData, isSuccess, isError } = useGetSelfInfo();
+  const { data: userInfosData, isSuccess } = useGetSelfInfo();
 
-  const userInfos = useMemo<userInfosType | undefined>(():
-    | userInfosType
-    | undefined => {
+  const userInfos = useMemo<userInfosType | undefined>(() => {
     if (isSuccess && userInfosData) {
       return userInfosData;
-    } else if (isError) {
+    } else {
       redirect("/login");
     }
-  }, [isError, isSuccess, userInfosData]);
+  }, [isSuccess, userInfosData]);
 
   if (!userInfos) {
     return (
