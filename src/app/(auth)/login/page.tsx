@@ -37,6 +37,7 @@ const LoginPage = () => {
       }}
     >
       <Field
+      ar
         id="email"
         name="email"
         type="text"
