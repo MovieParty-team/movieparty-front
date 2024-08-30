@@ -1,6 +1,6 @@
 "use client";
 
-import { useLogout } from "@/api/iam/hooks/useLogout";
+import { useLogout } from "@/api/auth/hooks/useLogout";
 import Button from "@/components/Button";
 
 const QuickAccessPage = () => {
