@@ -1,19 +1,19 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import RegisterPage from "@/app/(auth)/register/page";
 import { describe } from "node:test";
 import QueryProvider from "@/utils/QueryProvider";
+import Header from "@/app/(connected)/_components/Header";
 
-describe("Register", () => {
+describe("Header", () => {
   beforeAll(() => {
     render(
       <QueryProvider>
-        <RegisterPage />
+        <Header />
       </QueryProvider>
     );
   });
 
-  it("should render register page", () => {
+  it("should render header Component", () => {
     expect(screen).toBeDefined();
   });
 });

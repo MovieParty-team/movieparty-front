@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import Form from "@/components/Form";
-import { FieldProps } from "@/types/FormProps";
+import { FieldProps } from "@/types/FormProps.types";
 
 interface AuthPageProps {
   title: "Connexion" | "Inscription";
