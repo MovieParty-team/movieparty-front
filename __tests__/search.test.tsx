@@ -34,17 +34,14 @@ const theaterDataMock = [
       city: "Paris",
       thumbnail: "https://cinecool.com",
     },
-  }
+  },
 ];
 
 describe("Search", () => {
   beforeAll(() => {
-    jest.mock("next/navigation", () => ({
-      useSearchParams: () => [
-        new URLSearchParams("theater="), // Return a URLSearchParams object
-        jest.fn(), // Return a function to update the search params
-      ],
-    }));
+    jest
+      .spyOn(URLSearchParams.prototype, "get")
+      .mockImplementation(() => "theater=CinéCool");
     render(
       <QueryProvider>
         <SearchPage />

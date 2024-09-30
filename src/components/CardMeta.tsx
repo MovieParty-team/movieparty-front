@@ -1,17 +1,17 @@
 import { Card as AntdCard, CardProps } from "antd";
+import { CardMetaProps } from "antd/es/card";
 
 const { Meta } = AntdCard;
 
 interface Props {
   cardProps: CardProps;
-  metaTitle: string;
-  metaDescription: string;
+  metaProps: CardMetaProps;
 }
 
 export default function CardMeta(props: Props) {
   return (
     <AntdCard {...props.cardProps}>
-      <Meta title={props.metaTitle} description={props.metaDescription} />
+      <Meta {...props.metaProps} />
     </AntdCard>
   );
 }

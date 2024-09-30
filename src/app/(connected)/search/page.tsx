@@ -1,15 +1,9 @@
 "use client";
 
-import useSearchTheater from "@/api/theater/hooks/useSearchTheater";
 import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
 import TheaterView from "./_components/TheaterView";
 
-interface PageProps {
-  searchQuery?: string;
-}
-
-export default function SearchPage(props: PageProps) {
+export default function SearchPage() {
   const searchParams = useSearchParams();
 
   const theater = searchParams.get("theater") ?? "";

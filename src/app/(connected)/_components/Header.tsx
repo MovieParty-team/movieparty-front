@@ -37,7 +37,6 @@ export default function Header() {
             );
           }
         }}
-        className="text-black"
       />
     </header>
   );

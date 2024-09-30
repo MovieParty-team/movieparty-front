@@ -6,6 +6,9 @@ import Header from "@/app/(connected)/_components/Header";
 
 describe("Header", () => {
   beforeAll(() => {
+    jest.mock("next/navigation", () => ({
+      push: jest.fn(),
+    }));
     render(
       <QueryProvider>
         <Header />

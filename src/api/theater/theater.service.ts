@@ -5,7 +5,7 @@ import {
   ExternalApiData,
   InternalApiData,
 } from "@/types/theaterSearchData.types";
-import { Axios, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 export const TheaterServiceKey: string = "TheaterService";
 export default class TheaterService {

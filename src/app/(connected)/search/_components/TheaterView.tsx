@@ -29,7 +29,9 @@ export default function TheaterView(props: Props) {
   });
 
   useMemo(() => {
-    if (theater) refetch();
+    if (theater) {
+      refetch();
+    }
   }, [refetch, theater]);
 
   const theaterData = useMemo<TheaterData[] | undefined>(() => {
@@ -70,7 +72,7 @@ export default function TheaterView(props: Props) {
     );
   } else {
     return (
-      <div>
+      <div className="p-5 flex flex-row gap-5 flex-wrap items-center md:px-60 md:gap-20">
         {theaterData.map((item, index) => {
           return <Theater key={index} {...item} />;
         })}
