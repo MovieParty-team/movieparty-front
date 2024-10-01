@@ -17,6 +17,7 @@ export default function Header() {
     <header>
       <h1>Movieparty</h1>
       <Search
+        id="search"
         placeholder="Rechercher"
         onSearch={(e: any) => {
           if (debounceTimer) {
