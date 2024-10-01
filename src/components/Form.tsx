@@ -1,6 +1,6 @@
 "use client";
 
-import { FieldProps } from "@/types/FormProps";
+import { FieldProps } from "@/types/FormProps.types";
 import { Form as FormikForm, Formik, FormikHelpers } from "formik";
 
 interface FormProps {

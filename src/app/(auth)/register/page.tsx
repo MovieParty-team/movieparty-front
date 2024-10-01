@@ -2,7 +2,7 @@
 
 import { useRegister } from "@/api/auth/hooks/useRegister";
 import AuthPage from "../_components/AuthPage";
-import { FieldProps } from "@/types/FormProps";
+import { FieldProps } from "@/types/FormProps.types";
 import Field from "@/components/Field";
 import * as Yup from "yup";
 

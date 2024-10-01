@@ -4,7 +4,7 @@ import RegisterPage from "@/app/(auth)/register/page";
 import { describe } from "node:test";
 import QueryProvider from "@/utils/QueryProvider";
 
-describe("Login", () => {
+describe("Register", () => {
   beforeAll(() => {
     render(
       <QueryProvider>
@@ -13,7 +13,7 @@ describe("Login", () => {
     );
   });
 
-  it("should render login page", () => {
+  it("should render register page", () => {
     expect(screen).toBeDefined();
   });
 });
