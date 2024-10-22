@@ -13,7 +13,7 @@ import React, {
 } from "react";
 
 interface ConnectedContextType {
-  userInfos: userInfosType;
+  userInfos: userInfosType | undefined;
   setUpdatedUserInfos: any;
 }
 
@@ -30,17 +30,22 @@ const ConnectedProvider: FunctionComponent<IProps> = ({ children }) => {
     // update data and refetch OR set a state
   }, []);
 
-  const { data: userInfosData, isSuccess } = useGetSelfInfo();
+  const {
+    data: userInfosData,
+    isSuccess,
+    isLoading,
+    isError,
+  } = useGetSelfInfo();
 
   const userInfos = useMemo<userInfosType | undefined>(() => {
     if (isSuccess && userInfosData) {
       return userInfosData;
-    } else {
+    } else if (isError) {
       redirect("/login");
     }
-  }, [isSuccess, userInfosData]);
+  }, [isSuccess, userInfosData, isError]);
 
-  if (!userInfos) {
+  if (isLoading) {
     return (
       <div className="w-[100vw] h-[100vh] flex flex-col justify-center items-center">
         <CustomLoading />
