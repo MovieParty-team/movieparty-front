@@ -9,7 +9,7 @@ export const useLogout = () => {
     mutationFn: async () => await AuthService.logout(),
     onSettled: async () => {
       await client.invalidateQueries({
-        queryKey: [IamServiceKey],
+        queryKey: [IamServiceKey, "geMyself"],
       });
     },
   });

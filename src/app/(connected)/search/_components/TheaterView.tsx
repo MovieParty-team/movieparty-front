@@ -16,6 +16,7 @@ interface TheaterData {
   address: string;
   city: string;
   thumbnail: string;
+  provider_id: string;
 }
 
 export default function TheaterView(props: Props) {
@@ -46,6 +47,7 @@ export default function TheaterView(props: Props) {
             address: item.data.address,
             city: item.data.city,
             thumbnail: item.data.thumbnail,
+            provider_id: item.data.id,
           };
         });
         return theaterData;
@@ -58,6 +60,7 @@ export default function TheaterView(props: Props) {
             address: item.address,
             city: item.city,
             thumbnail: item.thumbnail,
+            provider_id: item.provider_id,
           };
         });
       }
