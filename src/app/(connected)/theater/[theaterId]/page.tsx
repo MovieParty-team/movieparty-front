@@ -33,12 +33,6 @@ export default function TheaterPage(props: Props) {
       <h1>{theater.name}</h1>
       <h2>{theater.address}</h2>
       <h3>{theater.city}</h3>
-      <Image
-        src={theater?.thumbnail}
-        alt={theater.name}
-        width={200}
-        height={300}
-      />
 
       <Showtimes theaterId={props.params.theaterId} />
     </main>
