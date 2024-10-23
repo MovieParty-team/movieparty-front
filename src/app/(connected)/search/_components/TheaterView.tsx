@@ -22,18 +22,12 @@ interface TheaterData {
 export default function TheaterView(props: Props) {
   const { theater } = props;
 
-  const { data, refetch } = useSearchTheater({
+  const { data } = useSearchTheater({
     input: {
       name: theater,
     },
     enabled: theater.length > 0,
   });
-
-  useMemo(() => {
-    if (theater) {
-      refetch();
-    }
-  }, [refetch, theater]);
 
   const theaterData = useMemo<TheaterData[] | undefined>(() => {
     if (data && data.provided && data.provided.length > 0) {
