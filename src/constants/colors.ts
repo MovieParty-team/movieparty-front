@@ -9,4 +9,5 @@ export const Colors = {
 
 export const TextColors = {
   primary: "#fff",
+  black: "#000",
 };

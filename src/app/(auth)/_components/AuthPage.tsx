@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import Form from "@/components/Form";
-import { FieldProps } from "@/types/FormProps";
+import { FieldProps } from "@/types/FormProps.types";
 
 interface AuthPageProps {
   title: "Connexion" | "Inscription";
@@ -19,9 +19,7 @@ export default function AuthPage({
 }: AuthPageProps) {
   return (
     <main className="flex flex-col">
-      <div
-        className="w-9/12 flex flex-col justify-start gap-10 pt-20 pl-5 md:w-3/12 mx-auto"
-      >
+      <div className="w-9/12 flex flex-col justify-start gap-10 pt-20 pl-5 md:w-3/12 mx-auto">
         <h1 className="text-4xl text-textPrimary font-bold">{title}</h1>
         <Form
           initialValues={initialValues}
@@ -30,7 +28,12 @@ export default function AuthPage({
           className="flex flex-col gap-4"
         >
           {children}
-          <Button htmlType="submit" type="primary" className="mt-5 p-5">
+          <Button
+            id="login"
+            htmlType="submit"
+            type="primary"
+            className="mt-5 p-5"
+          >
             {title}
           </Button>
         </Form>

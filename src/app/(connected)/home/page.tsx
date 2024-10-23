@@ -1,14 +1,13 @@
 "use client";
 
-import { useLogout } from "@/api/iam/hooks/useLogout";
+import { useLogout } from "@/api/auth/hooks/useLogout";
 import Button from "@/components/Button";
 
-const QuickAccessPage = () => {
+const HomePage = () => {
   const { mutate } = useLogout();
 
   return (
     <>
-      <h1>Quick Access</h1>
       <form action="">
         <Button
           type="primary"
@@ -23,4 +22,4 @@ const QuickAccessPage = () => {
   );
 };
 
-export default QuickAccessPage;
+export default HomePage;
