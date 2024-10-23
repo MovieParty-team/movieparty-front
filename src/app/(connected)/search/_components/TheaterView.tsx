@@ -16,23 +16,18 @@ interface TheaterData {
   address: string;
   city: string;
   thumbnail: string;
+  provider_id: string;
 }
 
 export default function TheaterView(props: Props) {
   const { theater } = props;
 
-  const { data, refetch } = useSearchTheater({
+  const { data } = useSearchTheater({
     input: {
       name: theater,
     },
     enabled: theater.length > 0,
   });
-
-  useMemo(() => {
-    if (theater) {
-      refetch();
-    }
-  }, [refetch, theater]);
 
   const theaterData = useMemo<TheaterData[] | undefined>(() => {
     if (data && data.provided && data.provided.length > 0) {
@@ -46,6 +41,7 @@ export default function TheaterView(props: Props) {
             address: item.data.address,
             city: item.data.city,
             thumbnail: item.data.thumbnail,
+            provider_id: item.data.id,
           };
         });
         return theaterData;
@@ -58,6 +54,7 @@ export default function TheaterView(props: Props) {
             address: item.address,
             city: item.city,
             thumbnail: item.thumbnail,
+            provider_id: item.provider_id,
           };
         });
       }

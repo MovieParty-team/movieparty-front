@@ -12,6 +12,12 @@ const nextConfig = {
         port: "",
         pathname: "/c_75_100/**",
       },
+      {
+        protocol: "https",
+        hostname: "fr.web.img*.acsta.net",
+        port: "",
+        pathname: "/**",
+      }
     ],
   },
 };

@@ -15,7 +15,7 @@ export default function useSearchTheater(props: Props) {
         input: props.input,
         signal: props.signal,
       }),
-    queryKey: [TheaterService],
+    queryKey: [TheaterService, props.input],
     enabled: props.enabled,
   });
 }

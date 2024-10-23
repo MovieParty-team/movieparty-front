@@ -40,6 +40,13 @@ export const antdTheme: ThemeConfig = {
     Card: {
       colorText: TextColors.black,
       colorTextHeading: TextColors.black,
-    }
+    },
+    Select: {
+      colorText: TextColors.black,
+      colorTextPlaceholder: TextColors.black,
+    },
+    DatePicker: {
+      colorText: TextColors.black,
+    },
   },
 };

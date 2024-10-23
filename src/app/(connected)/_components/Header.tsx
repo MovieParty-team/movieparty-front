@@ -15,7 +15,7 @@ export default function Header() {
 
   return (
     <header>
-      <h1>Movieparty</h1>
+      <h1 onClick={() => push("/")}>Movieparty</h1>
       <Search
         id="search"
         placeholder="Rechercher"
