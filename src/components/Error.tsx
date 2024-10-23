@@ -14,10 +14,12 @@ export default function Error(props: Props) {
   const pathname = usePathname();
 
   return (
-    <div className={className ?? "flex flex-col justify-center items-center gap-5"}>
+    <div
+      className={className ?? "flex flex-col justify-center items-center gap-5"}
+    >
       <p>{message}</p>
       <Button type="primary" href={pathname}>
-        Retour
+        Réessayer
       </Button>
     </div>
   );
