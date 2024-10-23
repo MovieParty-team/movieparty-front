@@ -59,7 +59,7 @@ export default class TheaterService {
     signal,
   }: {
     id: string;
-    day: string;
+    day: number;
     signal?: AbortSignal;
   }): Promise<StandardResponse<ShowtimesData[]>> => {
     const response = API.get(`/theater/showtimes/${id}/${day}`, {
@@ -73,4 +73,36 @@ export default class TheaterService {
     console.log(response);
     return response;
   };
+
+  static getFavStatus({
+    id,
+    signal,
+  }: {
+    id: string;
+    signal?: AbortSignal;
+  }): Promise<StandardResponse<boolean>> {
+    const response = API.get(`/theater/favorite/${id}`, { signal })
+      .then((res: AxiosResponse<StandardResponse<boolean>>) => res.data)
+      .catch((err) => {
+        throw err;
+      });
+
+    return response;
+  }
+
+  static toggleFav({
+    id,
+    signal,
+  }: {
+    id: string;
+    signal?: AbortSignal;
+  }): Promise<StandardResponse<null>> {
+    const response = API.put(`/theater/favorite/${id}`)
+      .then((res: AxiosResponse<StandardResponse<null>>) => res.data)
+      .catch((err) => {
+        throw err;
+      });
+
+    return response;
+  }
 }
