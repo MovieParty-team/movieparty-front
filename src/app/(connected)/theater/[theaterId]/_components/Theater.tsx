@@ -27,7 +27,7 @@ export default function Theater(props: Props) {
   }, [data, isSuccess]);
 
   return (
-    <div className="text-center flex flex-col items-center gap-2 md:self-stretch md:basis-1/4">
+    <section className="text-center flex flex-col items-center gap-2 md:self-stretch md:basis-1/4">
       <h1 className="text-3xl font-bold text-center">{theater.name}</h1>
       <Image
         src={theater.thumbnail ?? TheaterImage}
@@ -46,6 +46,6 @@ export default function Theater(props: Props) {
           <Image src={GreyStart} alt="star" width={50} height={50} />
         )}
       </button>
-    </div>
+    </section>
   );
 }

@@ -51,7 +51,7 @@ export default function TheaterPage(props: Props) {
   return (
     <main className="flex flex-col md:flex-row pt-10">
       <Theater theater={theater} />
-      <div className="flex flex-col gap-5 items-center md:basis-3/4">
+      <section className="flex flex-col gap-5 items-center md:basis-3/4">
         <DatePicker
           defaultValue={dayjs()}
           minDate={dayjs()}
@@ -59,7 +59,7 @@ export default function TheaterPage(props: Props) {
           onChange={(date) => changeDay(date ?? dayjs())}
         />
         <Showtimes theaterId={props.params.theaterId} day={day} />
-      </div>
+      </section>
     </main>
   );
 }

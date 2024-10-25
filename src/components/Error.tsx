@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Button from "./Button";
 
 interface Props {
-  message: string;
+  message?: string;
   className?: string;
 }
 
@@ -17,7 +17,7 @@ export default function Error(props: Props) {
     <div
       className={className ?? "flex flex-col justify-center items-center gap-5"}
     >
-      <p>{message}</p>
+      <p>{message ?? "Une erreur est survenue"}</p>
       <Button type="primary" href={pathname}>
         Réessayer
       </Button>
