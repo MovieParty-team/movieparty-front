@@ -35,6 +35,7 @@ export default function Showtimes(props: Props) {
         <ShowtimeElement
           key={movieWithShowtime.movie.title}
           movieWithShowtime={movieWithShowtime}
+          theaterId={theaterId}
         />
       ))}
     </div>
