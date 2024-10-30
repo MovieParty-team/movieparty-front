@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import RegisterPage from "@/app/(auth)/register/page";
 import { describe } from "node:test";
-import QueryProvider from "@/utils/QueryProvider";
+import QueryProvider from "@/components/providers/QueryProvider";
 
 describe("Register", () => {
   beforeAll(() => {
