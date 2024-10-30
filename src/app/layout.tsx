@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body className={`bg-darkBackground h-[100vh] ${inter.className}`}>
         <ConfigProvider theme={antdTheme}>
           <QueryProvider>{children}</QueryProvider>
