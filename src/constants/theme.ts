@@ -34,5 +34,19 @@ export const antdTheme: ThemeConfig = {
       defaultHoverBorderColor: "white",
       padding: 5,
     },
+    Input: {
+      colorText: TextColors.black,
+    },
+    Card: {
+      colorText: TextColors.black,
+      colorTextHeading: TextColors.black,
+    },
+    Select: {
+      colorText: TextColors.black,
+      colorTextPlaceholder: TextColors.black,
+    },
+    DatePicker: {
+      colorText: TextColors.black,
+    },
   },
 };

@@ -1,6 +1,7 @@
 import CustomLoading from "@/components/CustomLoading";
-import ConnectedProvider from "@/utils/ConnectedProvider";
+import ConnectedProvider from "@/components/providers/ConnectedProvider";
 import { Suspense } from "react";
+import Header from "./_components/Header";
 
 export default function ConnectedLayout({
   children,
@@ -9,7 +10,10 @@ export default function ConnectedLayout({
 }) {
   return (
     <Suspense fallback={<CustomLoading />}>
-      <ConnectedProvider>{children}</ConnectedProvider>
+      <ConnectedProvider>
+        <Header />
+        {children}
+      </ConnectedProvider>
     </Suspense>
   );
 }

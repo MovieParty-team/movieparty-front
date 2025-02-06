@@ -1,5 +1,5 @@
 import CustomLoading from "@/components/CustomLoading";
-import DisconnectedProvider from "@/utils/DisconnectedProvider";
+import DisconnectedProvider from "@/components/providers/DisconnectedProvider";
 import { Suspense } from "react";
 
 export default function AuthLayout({

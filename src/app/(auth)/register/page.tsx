@@ -1,8 +1,8 @@
 "use client";
 
-import { useRegister } from "@/api/iam/hooks/useRegister";
+import { useRegister } from "@/api/auth/hooks/useRegister";
 import AuthPage from "../_components/AuthPage";
-import { FieldProps } from "@/types/FormProps";
+import { FieldProps } from "@/types/FormProps.types";
 import Field from "@/components/Field";
 import * as Yup from "yup";
 
@@ -17,7 +17,7 @@ const registerSchema = Yup.object().shape({
   birthday: Yup.string().required("La date de naissance est requise"),
 });
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const initialValues: FieldProps = {
     email: "",
     username: "",
@@ -92,4 +92,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

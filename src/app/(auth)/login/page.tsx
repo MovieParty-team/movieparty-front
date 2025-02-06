@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { useLogin } from "@/api/iam/hooks/useLogin";
+import { useLogin } from "@/api/auth/hooks/useLogin";
 import AuthPage from "../_components/AuthPage";
-import { FieldProps } from "@/types/FormProps";
+import { FieldProps } from "@/types/FormProps.types";
 import Field from "@/components/Field";
 import * as Yup from "yup";
 
